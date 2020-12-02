@@ -1,8 +1,5 @@
 package data.enums;
 
-// ('meat', 'fish', 'vegetable', 'spice', 'fruit', 'cheese', 'drink', 'snack', 'sauce', 'alcohol');
-//
-//  ('soup', 'hot', 'cocktail', 'snack', 'salad');
 public enum ProductType {
     MEAT("meat"),
     FISH("fish"),
@@ -15,7 +12,7 @@ public enum ProductType {
     SAUCE("sauce"),
     ALCOHOL("alcohol");
 
-    private String name;
+    private final String name;
 
     ProductType(String name) {
         this.name = name;

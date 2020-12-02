@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+//@RequestMapping("api")
 public class ProductController {
 
     private final ProductService service;
@@ -32,14 +32,14 @@ public class ProductController {
 
     @PostMapping("/product/new")
     public List<Product> create(@RequestBody Product product) {
-        service.append(product);
+        service.add(product);
         return service.findAll();
     }
 
     @PutMapping("/products/{id}")
     public List<Product> update(@PathVariable Long id, @RequestBody Product product) {
         if (service.findById(id) != null)
-            service.append(product);
+            service.add(product);
         return service.findAll();
     }
 
