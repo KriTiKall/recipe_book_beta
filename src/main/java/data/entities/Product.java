@@ -1,8 +1,12 @@
 package data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import data.converters.ProductTypeConverter;
+import data.enums.PostgresEnumType;
 import data.enums.ProductType;
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
@@ -10,6 +14,8 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(schema = "recipe_book", name = "products")
+@TypeDef(name = "pgsql_enum",
+        typeClass = PostgresEnumType.class)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +24,8 @@ public class Product {
     private String name;
     @Column(name = "description")
     private String description;
-//    @Convert(converter = ProductTypeConverter.class)
-//    @Column(columnDefinition = "product_type")
-//    @Type( type = "pgsql_enum" )
     @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "recipe_book.product_type")
+    @Type(type = "pgsql_enum")
     private ProductType type;
 }

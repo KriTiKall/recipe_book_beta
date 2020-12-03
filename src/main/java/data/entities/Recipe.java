@@ -2,8 +2,11 @@ package data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import data.converters.RecipeTypeConverter;
+import data.enums.PostgresEnumType;
 import data.enums.RecipeType;
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
@@ -11,13 +14,17 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(schema = "recipe_book",name = "recipes")
+@TypeDef(name = "pgsql_enum",
+        typeClass = PostgresEnumType.class)
 public class Recipe {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "id_user")
     private Integer idUser;
-    @Convert(converter = RecipeTypeConverter.class)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", columnDefinition = "recipe_book.product_type")
+    @Type(type = "pgsql_enum")
     private RecipeType type;
     @Column(name = "manual", columnDefinition = "TEXT")
     private String manual;
@@ -25,6 +32,6 @@ public class Recipe {
     private String difficulty;
     @Column
     private String time;
-    @Column
+    @Column(name = "count_serving")
     private String countServing;
 }
