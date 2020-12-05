@@ -9,12 +9,14 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(schema = "recipe_book",name = "ingredients")
+@IdClass(IngredientId.class)
 public class Ingredient {
     @Id
     @Column(name = "id_recipe")
-    private Integer idRecipe;
+    private Long idRecipe;
+    @Id
     @Column(name = "id_prod")
-    private Integer idProd;
+    private Long idProduct;
     @Column(name = "weight")
     private Integer weight;
     @Column(name = "is_percent")

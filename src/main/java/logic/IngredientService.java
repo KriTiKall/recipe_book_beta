@@ -23,6 +23,10 @@ public class IngredientService {
         return repository.getOne(id);
     }
 
+    public List<Ingredient> findAllById(long id) {
+        return repository.findAllById(List.of(id));
+    }
+
     public List<Ingredient> findAll() {
         return repository.findAll();
     }

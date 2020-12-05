@@ -1,7 +1,6 @@
 package data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import data.converters.RecipeTypeConverter;
 import data.enums.PostgresEnumType;
 import data.enums.RecipeType;
 import lombok.Data;
@@ -21,7 +20,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "id_user")
-    private Integer idUser;
+    private Long idUser;
     @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "recipe_book.product_type")
     @Type(type = "pgsql_enum")

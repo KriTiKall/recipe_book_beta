@@ -26,13 +26,13 @@ public class IngredientController {
         return service.findAll();
     }
 
-    @GetMapping("/ingredient/{id}")
-    public Ingredient getIngredient(@PathVariable Long id) {
-        Hibernate.initialize(service.findById(id));
-        return service.findById(id);
+    @GetMapping("/ingredient/{idRecipe}")
+    public Ingredient getIngredient(@PathVariable Long idRecipe) {
+        Hibernate.initialize(service.findById(idRecipe));
+        return service.findById(idRecipe);
     }
 
-    @PostMapping("/ingredients/new")
+    @PostMapping("/ingredient/new")
     public List<Ingredient> create(@RequestBody Ingredient ingredient) {
         service.add(ingredient);
         return service.findAll();
@@ -45,7 +45,7 @@ public class IngredientController {
         return service.findAll();
     }
 
-    @DeleteMapping("/ingredient/{id}")
+    @DeleteMapping("/ingredient/{id}/")
     public void delete(@PathVariable Long id) {
         service.deleteById(id);
     }
