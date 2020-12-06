@@ -1,6 +1,7 @@
 package view;
 
 import data.entities.Ingredient;
+import data.entities.IngredientId;
 import data.entities.Product;
 import logic.IngredientService;
 import logic.ProductService;
@@ -26,10 +27,10 @@ public class IngredientController {
         return service.findAll();
     }
 
-    @GetMapping("/ingredient/{idRecipe}")
-    public Ingredient getIngredient(@PathVariable Long idRecipe) {
-        Hibernate.initialize(service.findById(idRecipe));
-        return service.findById(idRecipe);
+    @GetMapping("/ingredient/{idRecipe}/{idProduct}")
+    public Ingredient getIngredient(@PathVariable Long idRecipe, @PathVariable Long idProduct) {
+        Hibernate.initialize(service.findById(idRecipe, idProduct));
+        return service.findById(idRecipe, idProduct);
     }
 
     @PostMapping("/ingredient/new")
@@ -38,15 +39,16 @@ public class IngredientController {
         return service.findAll();
     }
 
-    @PutMapping("/ingredient/{id}")
-    public List<Ingredient> update(@PathVariable Long id, @RequestBody Ingredient ingredient) {
-        if (service.findById(id) != null)
+    @PutMapping("/ingredient/{idRecipe}/{idProduct}")
+    public List<Ingredient> update(@PathVariable Long idRecipe, @PathVariable Long idProduct, @RequestBody Ingredient ingredient) {
+        //todo entering id to request body is optional
+        if (service.findById(idRecipe, idProduct) != null)
             service.add(ingredient);
         return service.findAll();
     }
 
-    @DeleteMapping("/ingredient/{id}/")
-    public void delete(@PathVariable Long id) {
-        service.deleteById(id);
+    @DeleteMapping("/ingredient/{idRecipe}/{idProduct}")
+    public void delete(@PathVariable Long idRecipe, @PathVariable Long idProduct) {
+        service.deleteById(idRecipe, idProduct);
     }
 }

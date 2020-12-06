@@ -1,6 +1,7 @@
 package logic;
 
 import data.entities.Ingredient;
+import data.entities.IngredientId;
 import data.entities.Product;
 import data.repositoryies.IngredientRepository;
 import data.repositoryies.ProductRepository;
@@ -19,12 +20,8 @@ public class IngredientService {
         this.repository = repository;
     }
 
-    public Ingredient findById(long id) {
-        return repository.getOne(id);
-    }
-
-    public List<Ingredient> findAllById(long id) {
-        return repository.findAllById(List.of(id));
+    public Ingredient findById(Long idRecipe, Long idProduct) {
+        return repository.getOne(new IngredientId(idRecipe, idProduct));
     }
 
     public List<Ingredient> findAll() {
@@ -35,7 +32,7 @@ public class IngredientService {
         return repository.save(ingredient);
     }
 
-    public void deleteById(long id) {
-        repository.deleteById(id);
+    public void deleteById(Long idRecipe, Long idProduct) {
+        repository.deleteById(new IngredientId(idRecipe, idProduct));
     }
 }

@@ -38,7 +38,7 @@ public class ProductController {
 
     @PutMapping("/product/{id}")
     public List<Product> update(@PathVariable Long id, @RequestBody Product product) {
-        //todo bug with added new product a ne change
+        //todo entering id to request body is optional
         if (service.findById(id) != null)
             service.add(product);
         return service.findAll();

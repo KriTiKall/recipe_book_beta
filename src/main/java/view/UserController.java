@@ -40,6 +40,7 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public List<User> update(@PathVariable Long id, @RequestBody User user) {
+        //todo entering id to request body is optional
         if (service.findById(id) != null)
             service.add(user);
         return service.findAll();

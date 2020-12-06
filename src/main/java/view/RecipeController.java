@@ -40,6 +40,7 @@ public class RecipeController {
 
     @PutMapping("/recipe/{id}")
     public List<Recipe> update(@PathVariable Long id, @RequestBody Recipe recipe) {
+        //todo entering id to request body is optional
         if (service.findById(id) != null)
             service.add(recipe);
         return service.findAll();
