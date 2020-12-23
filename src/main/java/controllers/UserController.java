@@ -1,10 +1,7 @@
-package view;
+package controllers;
 
-import data.entities.Recipe;
 import data.entities.User;
-import logic.RecipeService;
-import logic.UserService;
-import org.hibernate.Hibernate;
+import logic.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,36 +11,31 @@ import java.util.List;
 @RequestMapping("api")
 public class UserController {
 
-    private final UserService service;
+    private final Service<Long, User> service;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(Service<Long, User> service) {
         this.service = service;
     }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
+    public List<User> getAll() {
         return service.findAll();
-    }
-
-    @GetMapping("/user/{id}")
-    public User getUser(@PathVariable Long id) {
-        Hibernate.initialize(service.findById(id));
-        return service.findById(id);
     }
 
     @PostMapping("/user/new")
     public List<User> create(@RequestBody User user) {
-        service.add(user);
-        return service.findAll();
+        return service.add(user);
+    }
+
+    @GetMapping("/user/{id}")
+    public User get(@PathVariable Long id) {
+        return service.findById(id);
     }
 
     @PutMapping("/user/{id}")
     public List<User> update(@PathVariable Long id, @RequestBody User user) {
-        //todo entering id to request body is optional
-        if (service.findById(id) != null)
-            service.add(user);
-        return service.findAll();
+        return service.update(id, user);
     }
 
     @DeleteMapping("/user/{id}")

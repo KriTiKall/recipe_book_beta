@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(schema = "recipe_book",name = "recipes")
 @TypeDef(name = "pgsql_enum",
         typeClass = PostgresEnumType.class)
-public class Recipe {
+public class Recipe implements EntityWithId<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

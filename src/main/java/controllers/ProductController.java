@@ -1,8 +1,7 @@
-package view;
+package controllers;
 
 import data.entities.Product;
-import logic.ProductService;
-import org.hibernate.Hibernate;
+import logic.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,36 +11,31 @@ import java.util.List;
 @RequestMapping("api")
 public class ProductController {
 
-    private final ProductService service;
+    private final Service<Long, Product> service;
 
     @Autowired
-    public ProductController(ProductService service) {
+    public ProductController(Service<Long, Product> service) {
         this.service = service;
     }
 
     @GetMapping("/products")
-    public List<Product> getProducts() {
+    public List<Product> getAll() {
         return service.findAll();
-    }
-
-    @GetMapping("/product/{id}")
-    public Product getProduct(@PathVariable Long id) {
-        Hibernate.initialize(service.findById(id));
-        return service.findById(id);
     }
 
     @PostMapping("/product/new")
     public List<Product> create(@RequestBody Product product) {
-        service.add(product);
-        return service.findAll();
+        return service.add(product);
+    }
+
+    @GetMapping("/product/{id}")
+    public Product getProduct(@PathVariable Long id) {
+        return service.findById(id);
     }
 
     @PutMapping("/product/{id}")
     public List<Product> update(@PathVariable Long id, @RequestBody Product product) {
-        //todo entering id to request body is optional
-        if (service.findById(id) != null)
-            service.add(product);
-        return service.findAll();
+        return service.update(id, product);
     }
 
     @DeleteMapping("/product/{id}")

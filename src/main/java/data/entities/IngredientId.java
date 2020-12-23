@@ -1,16 +1,22 @@
 package data.entities;
 
+import lombok.Getter;
+
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@Embeddable
 public class IngredientId implements Serializable {
 
     private Long idRecipe;
     private Long idProduct;
 
-    public IngredientId() {}
+    public IngredientId() {
+    }
 
-    public IngredientId(Long idRecipe, Long idProduct){
+    public IngredientId(Long idRecipe, Long idProduct) {
         this.idRecipe = idRecipe;
         this.idProduct = idProduct;
     }

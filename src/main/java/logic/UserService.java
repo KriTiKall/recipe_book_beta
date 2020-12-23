@@ -1,16 +1,15 @@
 package logic;
 
-import data.entities.Recipe;
 import data.entities.User;
-import data.repositoryies.RecipeRepository;
 import data.repositoryies.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements logic.Service<Long, User> {
 
     private UserRepository repository;
 
@@ -19,19 +18,25 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User findById(long id) {
-        return repository.getOne(id);
-    }
-
+    @Override
     public List<User> findAll() {
         return repository.findAll();
     }
 
-    public User add(User user) {
-        return repository.save(user);
+    @Override
+    public List<User> add(User user) {
+        repository.save(user);
+        return findAll();
     }
 
-    public void deleteById(long id) {
+    @Override
+    public User findById(Long id) {
+        Hibernate.initialize(repository.getOne(id));
+        return repository.getOne(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }

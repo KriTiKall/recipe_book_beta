@@ -1,7 +1,6 @@
 package data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import data.converters.ProductTypeConverter;
 import data.enums.PostgresEnumType;
 import data.enums.ProductType;
 import lombok.Data;
@@ -16,7 +15,7 @@ import javax.persistence.*;
 @Table(schema = "recipe_book", name = "products")
 @TypeDef(name = "pgsql_enum",
         typeClass = PostgresEnumType.class)
-public class Product {
+public class Product implements EntityWithId<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

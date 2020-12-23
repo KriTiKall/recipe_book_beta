@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(schema = "recipe_book",name = "users")
-public class User {
+public class User implements EntityWithId<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,16 +1,15 @@
 package logic;
 
-import data.entities.Product;
 import data.entities.Recipe;
-import data.repositoryies.ProductRepository;
 import data.repositoryies.RecipeRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RecipeService {
+public class RecipeService implements logic.Service<Long, Recipe> {
 
     private RecipeRepository repository;
 
@@ -19,19 +18,25 @@ public class RecipeService {
         this.repository = repository;
     }
 
-    public Recipe findById(long id) {
+    @Override
+    public Recipe findById(Long id) {
+        Hibernate.initialize(repository.getOne(id));
         return repository.getOne(id);
     }
 
+    @Override
     public List<Recipe> findAll() {
         return repository.findAll();
     }
 
-    public Recipe add(Recipe recipe) {
-        return repository.save(recipe);
+    @Override
+    public List<Recipe> add(Recipe recipe) {
+        repository.save(recipe);
+        return findAll();
     }
 
-    public void deleteById(long id) {
+    @Override
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }

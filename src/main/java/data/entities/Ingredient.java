@@ -9,14 +9,9 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(schema = "recipe_book",name = "ingredients")
-@IdClass(IngredientId.class)
-public class Ingredient {
-    @Id
-    @Column(name = "id_recipe")
-    private Long idRecipe;
-    @Id
-    @Column(name = "id_prod")
-    private Long idProduct;
+public class Ingredient implements EntityWithId<IngredientId>{
+    @EmbeddedId
+    private IngredientId id;
     @Column(name = "weight")
     private Integer weight;
     @Column(name = "is_percent")
